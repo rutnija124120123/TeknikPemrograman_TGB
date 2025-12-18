@@ -1,0 +1,22 @@
+import numpy as np
+import matplotlib.pyplot as plt
+from scipy.interpolate import griddata
+
+X = np.array([0, 0, 50, 50, 100, 100])
+Y = np.array([0, 50, 0, 50, 0, 50])
+Z = np.array([43210, 43280, 43100, 43420, 43050, 43500])
+
+xi = np.linspace(0, 100, 50)
+yi = np.linspace(0, 50, 50)
+Xi, Yi = np.meshgrid(xi, yi)
+
+Zi = griddata((X, Y), Z, (Xi, Yi), method='nearest')
+
+plt.figure(figsize=(6,5))
+plt.contourf(Xi, Yi, Zi, levels=10)
+plt.colorbar(label='Total Field (nT)')
+plt.scatter(X, Y, c='k')
+plt.xlabel('X (m)')
+plt.ylabel('Y (m)')
+plt.title('Peta Anomali Medan Magnetik')
+plt.show()
