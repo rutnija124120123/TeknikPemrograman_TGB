@@ -1,0 +1,39 @@
+class Sensor:
+    def __init__(self, id_sensor, lokasi, jenis):
+        self.id_sensor = id_sensor
+        self.lokasi = lokasi
+        self.jenis = jenis
+    
+    def info(self):
+        return f"Sensor ID: {self.id_sensor}, Lokasi: {self.lokasi}, Jenis: {self.jenis}"
+
+
+class SensorSeismik(Sensor):
+    def __init__(self, id_sensor, lokasi, jenis, frekuensi_sampling):
+        super().__init__(id_sensor, lokasi, jenis)
+        self.frekuensi_sampling = frekuensi_sampling
+    
+    def jumlah_sampel(self, durasi_detik):
+        """Menghitung jumlah sampel berdasarkan durasi pengukuran"""
+        return int(durasi_detik * self.frekuensi_sampling)
+    
+    def info(self):
+        return f"{super().info()}, Frekuensi Sampling: {self.frekuensi_sampling} Hz"
+
+
+# Contoh penggunaan
+if __name__ == "__main__":
+    print("=== Tantangan 1 ===")
+    
+    # Membuat objek sensor biasa
+    sensor1 = Sensor("S001", "Gedung A", "Getaran")
+    print(sensor1.info())
+    
+    # Membuat objek sensor seismik
+    seismik1 = SensorSeismik("SS001", "Gunung Merapi", "Seismik", 100)
+    print(seismik1.info())
+    
+    # Menghitung jumlah sampel untuk durasi 10 detik
+    durasi = 10  # detik
+    jumlah_sampel = seismik1.jumlah_sampel(durasi)
+    print(f"Jumlah sampel untuk {durasi} detik: {jumlah_sampel}")
